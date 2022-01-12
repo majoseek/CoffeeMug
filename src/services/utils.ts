@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import Iproduct from "../models/product.interface";
-const uri =
-    "mongodb+srv://admin:admin@cluster0.bcan9.mongodb.net/coffeemug?retryWrites=true&w=majority";
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname + "/.env" });
+const uri = `mongodb+srv://${process.env.LOGIN}:${process.env.PASSWORD}@cluster0.bcan9.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 export const connect_to_db = () => {
     mongoose.connect(uri).catch((err) => {
         console.log(err);
