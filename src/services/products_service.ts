@@ -9,13 +9,17 @@ export default class ProductService {
         return await Product.find({ id: id });
     };
     save_product = async (product: Iproduct) => {
-        const new_product = new Product({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            updateDate: new Date(),
-        });
-        return await new_product.save();
+        if (product.name.length > 100)
+            throw new Error("Product name cant exceed 100 characters");
+        else {
+            const new_product = new Product({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                updateDate: new Date(),
+            });
+            return await new_product.save();
+        }
     };
     delete_given_product = async (id: number) => {
         return await Product.findOneAndDelete({ id: id });
