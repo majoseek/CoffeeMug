@@ -13,6 +13,7 @@ export const isProduct = (object: any): object is Iproduct => {
         "id" in object &&
         "name" in object &&
         "price" in object &&
-        "updateDate" in object
+        "updateDate" in object &&
+        object.name.length <= 100
     );
 };
