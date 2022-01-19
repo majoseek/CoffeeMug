@@ -32,21 +32,17 @@ export default class ProductController {
             });
     };
     update_product = (req: Request, res: Response) => {
-        if (req.body == undefined || req.body.id == undefined)
-            res.status(400).send("You must specify product id");
-        else {
-            this.product_service
-                .update_given_product(req.body)
-                .then(() => {
-                    res.status(201).send({ message: "OK" });
-                })
-                .catch((err: Error) => {
-                    console.log(err);
-                    res.status(500).send({
-                        message: "There was an error updating the product",
-                    });
+        this.product_service
+            .update_given_product(req.body)
+            .then(() => {
+                res.status(201).send({ message: "OK" });
+            })
+            .catch((err: Error) => {
+                console.log(err);
+                res.status(500).send({
+                    message: "There was an error updating the product",
                 });
-        }
+            });
     };
     delete_product = (req: Request, res: Response) => {
         this.product_service
@@ -63,28 +59,24 @@ export default class ProductController {
             });
     };
     add_product = (req: Request, res: Response) => {
-        if (req.body == undefined || !isProduct(req.body))
-            res.status(400).send("Wrong input body");
-        else {
-            this.product_service
-                .save_product({
-                    id: req.body.id,
-                    name: req.body.name,
-                    price: req.body.price,
-                    updateDate: new Date(req.body.updateDate),
-                })
-                .then(() => {
-                    res.status(201).send({
-                        result: { id: req.body.id },
-                        message: "OK",
-                    });
-                })
-                .catch((err: Error) => {
-                    console.log(err);
-                    res.status(500).send({
-                        message: "There was a problem with adding your product",
-                    });
+        this.product_service
+            .save_product({
+                id: req.body.id,
+                name: req.body.name,
+                price: req.body.price,
+                updateDate: new Date(req.body.updateDate),
+            })
+            .then(() => {
+                res.status(201).send({
+                    result: { id: req.body.id },
+                    message: "OK",
                 });
-        }
+            })
+            .catch((err: Error) => {
+                console.log(err);
+                res.status(500).send({
+                    message: "There was a problem with adding your product",
+                });
+            });
     };
 }

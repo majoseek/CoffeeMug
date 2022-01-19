@@ -9,7 +9,7 @@ export default class ProductService {
         return await Product.find({ id: id });
     };
     save_product = async (product: Iproduct) => {
-        if (product.name.length > 100)
+        if (product.name.length > 10)
             throw new Error("Product name cant exceed 100 characters");
         else {
             const new_product = new Product({
