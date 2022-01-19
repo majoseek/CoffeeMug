@@ -1,12 +1,13 @@
 import express from "express";
 import ProductController from "../controllers/products_controller";
 import ProductService from "../services/products_service";
+import { validate_middleware } from "../middlewares/validateMiddleware";
 const router = express.Router();
 const productService = new ProductService();
 const productController = new ProductController(productService);
 router.get("/", productController.get_all_products);
 router.get("/:id", productController.get_product);
-router.post("/", productController.add_product);
-router.put("/", productController.update_product);
+router.post("/", validate_middleware, productController.add_product);
+router.put("/", validate_middleware, productController.update_product);
 router.delete("/:id", productController.delete_product);
 export default router;

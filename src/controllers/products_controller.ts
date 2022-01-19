@@ -32,21 +32,17 @@ export default class ProductController {
             });
     };
     update_product = (req: Request, res: Response) => {
-        if (req.body == undefined || req.body.id == undefined)
-            res.status(400).send("You must specify product id");
-        else {
-            this.product_service
-                .update_given_product(req.body)
-                .then(() => {
-                    res.status(201).send({ message: "OK" });
-                })
-                .catch((err: Error) => {
-                    console.log(err);
-                    res.status(500).send({
-                        message: "There was an error updating the product",
-                    });
+        this.product_service
+            .update_given_product(req.body)
+            .then(() => {
+                res.status(201).send({ message: "OK" });
+            })
+            .catch((err: Error) => {
+                console.log(err);
+                res.status(500).send({
+                    message: "There was an error updating the product",
                 });
-        }
+            });
     };
     delete_product = (req: Request, res: Response) => {
         this.product_service
