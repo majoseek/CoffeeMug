@@ -11,7 +11,11 @@ export const validate_middleware = (
       }
       else {
             const product_name = req.body.name;
-            if (product_name.length > 100)
+            if (product_name.length > 100) {
                   res.status(400).send("Product name cant exceed 100 characters")
+                  next()
+            }
+            else
+                  next();
       }
 }
